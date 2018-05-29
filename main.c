@@ -169,7 +169,7 @@ int mainGame()
 	gotoxy(16, 20);
 	printf("%2s%s%2s", "", modeItem[3], "");
 
-	if((fMap=fopen("maps\\MapInfo.dat","r"))==NULL)
+	if(fopen_s(&fMap, "maps\\MapInfo.dat", "r"))
 	{
 		gotoxy(LEFT+4,TOP+2);
 		printf("打开地图信息文件发生错误!");
@@ -193,7 +193,7 @@ int mainGame()
 	
 	do
 	{
-        ch = getch();
+        ch = _getch();
         switch (ch)
 		{
         case 's': case 'S': case '2': case 80:  // 下
@@ -593,7 +593,7 @@ void selectMap()
 	SetConsoleTextAttribute(g_hConsoleOutput,0x0F);
 	system("cls");
 
-	if((fMap=fopen("maps\\MapInfo.dat","r"))==NULL)
+	if(fopen_s(&fMap, "maps\\MapInfo.dat", "r"))
 	{
 		gotoxy(LEFT+4,TOP+4);
 		printf("打开地图信息文件发生错误!");
@@ -810,7 +810,7 @@ void creatMap()
 			if(ch==13){
 				gotoxy(LEFT+5,BUTTON-3);
 				printf("给你的地图取一个牛掰的名字吧！-->  ");
-				scanf("%s",temp_Name);
+				scanf_s("%s", temp_Name, sizeof(temp_Name));
 				gotoxy(LEFT+5,BUTTON-2);
 				printf("正在保存...");
 				Sleep(100);
@@ -828,10 +828,10 @@ void creatMap()
 	}while(1);
 
 
-	strcat(map_Name,temp_Name);
-	strcat(map_Name,".map");
+	strcat_s(map_Name, sizeof(map_Name), temp_Name);
+	strcat_s(map_Name, sizeof(map_Name), ".map");
 
-	if((fp=fopen(map_Name,"wb"))==NULL || (fMap=fopen("maps\\MapInfo.dat","a"))==NULL)
+	if(fopen_s(&fp, map_Name, "wb") || fopen_s(&fMap, "maps\\MapInfo.dat","a"))
 	{
 		gotoxy(LEFT+12,BUTTON-3);
 		printf("保存失败!");
@@ -846,7 +846,7 @@ void creatMap()
 		}
 	}
 
-	strcat(temp_Name,"\n");
+	strcat_s(temp_Name, sizeof(temp_Name), "\n");
 	fputs(temp_Name,fMap);
 
 	fclose(fMap);
@@ -868,9 +868,9 @@ void PrintLev()
 	short file_temp;	//临时读出的关卡文件
 	char url_Map[30]="maps//";	//地图路径
 
-	strcat(url_Map,fileName[level_Now]);
-	strcat(url_Map,".map");
-	if((fp=fopen(url_Map,"rb"))==NULL)
+	strcat_s(url_Map, sizeof(url_Map), fileName[level_Now]);
+	strcat_s(url_Map, sizeof(url_Map), ".map");
+	if(fopen_s(&fp, url_Map, "rb"))
 	{
 		printf("关卡文件不存在或不能打开关卡文件!");
 		exit(0);
