@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -100,7 +100,7 @@ static const char* BALL_SHAPE[]={"⊙","◎","●"};
 int main()
 {
     g_hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);  // 获取控制台输出句柄
-	SetConsoleTitleA("弹弹乐----By : shw");
+	SetConsoleTitleA("弹弹乐 - by 慕宵子");
 
 // 	char chVolume[256];
 // 	long lVolume;
@@ -150,11 +150,11 @@ int mainGame()
 	
 	SetConsoleTextAttribute(g_hConsoleOutput,FOREGROUND_GREEN|FOREGROUND_INTENSITY);
     gotoxy(15, 5);
-    printf("┏━━━━━━━┓");
+    printf("┏━━━━━━━━━━━━━━┓");
     gotoxy(15, 6);
     printf("┃%2s%s%2s┃", "", "★弹弹乐★", "");
     gotoxy(15, 7);
-    printf("┗━━━━━━━┛");
+    printf("┗━━━━━━━━━━━━━━┛");
 	
 	SetConsoleTextAttribute(g_hConsoleOutput, 0xF0);
 	gotoxy(16, 14);
@@ -799,13 +799,14 @@ void creatMap()
 
 		case 27:
 			return;
-			
+			break;
 		}
 
 		if(ch==13)
 		{
 			gotoxy(LEFT+2,BUTTON-5);
 			printf("你确定保存好了吗？< 按ENTER键确认，按任意键继续编辑>");
+			_getch();
 			ch=_getch();
 			if(ch==13){
 				gotoxy(LEFT+5,BUTTON-3);
